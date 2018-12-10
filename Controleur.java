@@ -17,16 +17,29 @@ public class Controleur implements Observer{
     private VueTournoi tournoi;
     
     public Controleur(){
-       
-        VueTournoi tournoi = new VueTournoi();
-        tournoi.afficher();
+        tournoi = new VueTournoi();
+        tournoi.addObserver(this);
+        tournoi.afficher();       
     }
     
     
 
     @Override
     public void update(Observable arg0, Object arg1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (arg1 instanceof Actions) {
+            if (((Actions) arg1) == Actions.ValideJoueur){
+                // Joueur j = new Joueur(tournoi.getNomJoueur());
+                Joueur j = new Joueur("Toto");
+                tournoi.addJoueur(j);
+            } else if (((Actions) arg1) == Actions.SuppJoueur){
+                tournoi.getListeJoueur().remove(tournoi.getListeJoueur().getSelectedIndex());
+            }
+                
+        }
+        
     }
+    
+    
+    
     
 }

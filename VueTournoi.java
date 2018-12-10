@@ -9,7 +9,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -27,12 +31,16 @@ public class VueTournoi extends Observable{
     private JLabel titre;
     private JTextField joueur;
     private JButton valideJoueur;
+    private JButton suppJoueur;
+    private JButton validerTournoi;
     private JComboBox listeJoueur;
+    private ArrayList<Joueur> les_joueurs;
     
     public VueTournoi(){
         
+        les_joueurs = new ArrayList<>();
         window = new JFrame();
-        window.setSize(500, 480);
+        window.setSize(600, 700);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocationRelativeTo(null);
         
@@ -43,8 +51,15 @@ public class VueTournoi extends Observable{
         JLabel titre = new JLabel("Tournoi de morpion");
         mainPanel.add(titre, BorderLayout.NORTH);
         
-        JPanel contentPanel = new JPanel (new GridLayout(3, 3));
+        JPanel contentPanel = new JPanel (new GridLayout(5, 5));
         mainPanel.add(contentPanel, BorderLayout.CENTER);
+        
+        
+        contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel("Liste des joueurs inscrits : "));
+        contentPanel.add(new JLabel(""));
         
         JTextField joueur = new JTextField();
         joueur.setText("Identifiant joueur");
@@ -52,6 +67,9 @@ public class VueTournoi extends Observable{
         
         JButton valideJoueur = new JButton("Valider");
         contentPanel.add(valideJoueur);
+        
+        contentPanel.add(new JLabel(""));
+        
         
         JComboBox listeJoueur = new JComboBox();
         contentPanel.add(listeJoueur);
@@ -62,6 +80,51 @@ public class VueTournoi extends Observable{
         contentPanel.add(new JLabel(""));
         contentPanel.add(new JLabel(""));
         contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel(""));
+        contentPanel.add(new JLabel(""));
+        
+        JButton suppJoueur = new JButton("Supprimer Joueur");
+        contentPanel.add(suppJoueur);
+        contentPanel.add(new JLabel(""));
+        
+        JButton validerTournoi = new JButton("Valider tournoi");
+        mainPanel.add(validerTournoi, BorderLayout.SOUTH);
+        
+        valideJoueur.addActionListener(new ActionListener(){
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers(Actions.ValideJoueur);
+                clearChanged();
+            }
+        });
+        
+        
+        suppJoueur.addActionListener(new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setChanged();
+            notifyObservers(Actions.SuppJoueur);
+            clearChanged();
+        }
+        });
+        
+        validerTournoi.addActionListener(new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setChanged();
+            notifyObservers(Actions.ValideTournoi);
+            clearChanged();
+        }
+        });
+        
+        
         
         
         
@@ -70,7 +133,73 @@ public class VueTournoi extends Observable{
     }
     
     public void afficher() {
-        this.window.setVisible(true);
+        this.getWindow().setVisible(true);
     }
+    
+    
+
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
+    }
+
+    /**
+     * @return the titre
+     */
+    public JLabel getTitre() {
+        return titre;
+    }
+
+    /**
+     * @return the joueur
+     */
+    public JTextField getJoueur() {
+        return joueur;
+    }
+
+    /**
+     * @return the valideJoueur
+     */
+    public JButton getValideJoueur() {
+        return valideJoueur;
+    }
+
+    /**
+     * @return the suppJoueur
+     */
+    public JButton getSuppJoueur() {
+        return suppJoueur;
+    }
+
+    /**
+     * @return the validerTournoi
+     */
+    public JButton getValiderTournoi() {
+        return validerTournoi;
+    }
+
+    /**
+     * @return the listeJoueur
+     */
+    public JComboBox getListeJoueur() {
+        return listeJoueur;
+    }
+
+    /**
+     * @return the les_joueurs
+     */
+    public void addJoueur(Joueur j) {
+        this.les_joueurs.add(j);
+    }
+
+    String getNomJoueur() {
+        return this.getJoueur().getText() ;
+    }
+
+
+
+
     
 }
