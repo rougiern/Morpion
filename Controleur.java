@@ -5,6 +5,8 @@
  */
 package morpion;
 
+
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -15,8 +17,11 @@ import java.util.Observer;
 public class Controleur implements Observer{
     
     private VueTournoi tournoi;
+    private VueMatch match;
+    private ArrayList<Joueur> les_joueurs;
     
     public Controleur(){
+        les_joueurs = new ArrayList<>();
         tournoi = new VueTournoi();
         tournoi.addObserver(this);
         tournoi.afficher();       
@@ -28,11 +33,20 @@ public class Controleur implements Observer{
     public void update(Observable arg0, Object arg1) {
         if (arg1 instanceof Actions) {
             if (((Actions) arg1) == Actions.ValideJoueur){
-                // Joueur j = new Joueur(tournoi.getNomJoueur());
-                Joueur j = new Joueur("Toto");
-                tournoi.addJoueur(j);
+                
+                tournoi.getListeJoueur().addItem(tournoi.getJoueur().getText());
             } else if (((Actions) arg1) == Actions.SuppJoueur){
-                tournoi.getListeJoueur().remove(tournoi.getListeJoueur().getSelectedIndex());
+                tournoi.getListeJoueur().removeItem(tournoi.getListeJoueur().getSelectedItem());
+            }
+            
+            else if (((Actions) arg1) == Actions.ValideTournoi){
+                  for (int i =0; i<= tournoi.getListeJoueur().getMaximumRowCount(); i++){
+                      Joueur j = new Joueur(tournoi.getJoueur().getText());
+                      addJoueur(j);
+                      match.afficher();
+                      
+                  }
+                
             }
                 
         }
@@ -41,5 +55,16 @@ public class Controleur implements Observer{
     
     
     
+    
+        /**
+     * @param j
+     */
+    public void addJoueur(Joueur j) {
+        this.les_joueurs.add(j);
+    }
+    
+    public void removeJoueur(Joueur j){
+        this.les_joueurs.remove(j);
+    }
     
 }

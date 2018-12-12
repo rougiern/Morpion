@@ -5,6 +5,7 @@
  */
 package morpion;
 
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -34,11 +35,9 @@ public class VueTournoi extends Observable{
     private JButton suppJoueur;
     private JButton validerTournoi;
     private JComboBox listeJoueur;
-    private ArrayList<Joueur> les_joueurs;
     
     public VueTournoi(){
         
-        les_joueurs = new ArrayList<>();
         window = new JFrame();
         window.setSize(600, 700);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -48,7 +47,7 @@ public class VueTournoi extends Observable{
         JPanel mainPanel = new JPanel(new BorderLayout());
         window.add(mainPanel) ;
         
-        JLabel titre = new JLabel("Tournoi de morpion");
+        titre = new JLabel("Tournoi de morpion");
         mainPanel.add(titre, BorderLayout.NORTH);
         
         JPanel contentPanel = new JPanel (new GridLayout(5, 5));
@@ -61,17 +60,17 @@ public class VueTournoi extends Observable{
         contentPanel.add(new JLabel("Liste des joueurs inscrits : "));
         contentPanel.add(new JLabel(""));
         
-        JTextField joueur = new JTextField();
+        joueur = new JTextField();
         joueur.setText("Identifiant joueur");
         contentPanel.add(joueur);
         
-        JButton valideJoueur = new JButton("Valider");
+        valideJoueur = new JButton("Valider");
         contentPanel.add(valideJoueur);
         
         contentPanel.add(new JLabel(""));
         
         
-        JComboBox listeJoueur = new JComboBox();
+        listeJoueur = new JComboBox();
         contentPanel.add(listeJoueur);
         
         contentPanel.add(new JLabel(""));
@@ -89,11 +88,11 @@ public class VueTournoi extends Observable{
         contentPanel.add(new JLabel(""));
         contentPanel.add(new JLabel(""));
         
-        JButton suppJoueur = new JButton("Supprimer Joueur");
+        suppJoueur = new JButton("Supprimer Joueur");
         contentPanel.add(suppJoueur);
         contentPanel.add(new JLabel(""));
         
-        JButton validerTournoi = new JButton("Valider tournoi");
+        validerTournoi = new JButton("Valider tournoi");
         mainPanel.add(validerTournoi, BorderLayout.SOUTH);
         
         valideJoueur.addActionListener(new ActionListener(){
@@ -187,16 +186,11 @@ public class VueTournoi extends Observable{
         return listeJoueur;
     }
 
-    /**
-     * @return the les_joueurs
-     */
-    public void addJoueur(Joueur j) {
-        this.les_joueurs.add(j);
-    }
 
-    String getNomJoueur() {
-        return this.getJoueur().getText() ;
-    }
+
+
+
+
 
 
 
